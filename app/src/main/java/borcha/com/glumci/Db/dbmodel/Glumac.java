@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by borcha on 20.05.17..
  */
+
 public class Glumac {
 
     private int id;
