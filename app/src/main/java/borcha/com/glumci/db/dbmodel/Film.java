@@ -1,15 +1,12 @@
 package borcha.com.glumci.db.dbmodel;
-
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Created by androiddevelopment on 13.6.17..
  */
-@DatabaseTable(tableName=Film.tFilm)
-class Film  {
+@DatabaseTable(tableName= Film.tFilm)
+public class Film {
 
     public static final String tFilm="film";
     public static final String tFilm_id="id";

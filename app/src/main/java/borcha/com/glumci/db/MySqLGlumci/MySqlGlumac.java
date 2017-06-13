@@ -1,4 +1,4 @@
-package borcha.com.glumci.db.dbmodel;
+package borcha.com.glumci.db.MySqLGlumci;
 
 import android.content.Context;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -6,16 +6,18 @@ import com.j256.ormlite.stmt.Where;
 import java.sql.SQLException;
 import java.util.List;
 import borcha.com.glumci.db.MyDbHelp;
+import borcha.com.glumci.db.dbmodel.Film;
+import borcha.com.glumci.db.dbmodel.Glumac;
 import borcha.com.glumci.pomocne.infoPoruka;
 
 /**
  * Created by borcha on 02.06.17..
  */
 
-class MySqlGlumac extends MyDbHelp {
+public class MySqlGlumac extends MyDbHelp {
 
     private Context cont;
-    private  Glumac glumac;
+    private Glumac glumac;
     private int id=0;
 
 
@@ -119,11 +121,11 @@ class MySqlGlumac extends MyDbHelp {
      *  Vraca listu jela po kategoriji
      */
 
-    public List<Glumac> getGlumaciPioZanru(Zanr _kategorija)  {
+    public List<Glumac> getGlumaciPioZanru(Film _film)  {
         List<Glumac> glumci=null;
         try {
             QueryBuilder upit = getDaoGlumac().queryBuilder();
-            Where<Glumac,Integer> where=upit.where().idEq(getDaoZanr(),_kategorija);
+            Where<Glumac,Integer> where=upit.where().idEq(getDaoFilm(),_film);
             glumci=where.query();
 
         } catch (SQLException e) {
@@ -145,7 +147,7 @@ class MySqlGlumac extends MyDbHelp {
         this.id = id;
     }
 
-    public int getBrojJela() {
+    public int getBrojGlumaca() {
         int br = 0;
         try {
             br = getDaoGlumac().queryForAll().size();

@@ -1,7 +1,6 @@
-package borcha.com.glumci.db.dbmodel;
+package borcha.com.glumci.db.MySqLGlumci;
 
 import android.content.Context;
-
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 
@@ -10,14 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import borcha.com.glumci.db.MyDbHelp;
+import borcha.com.glumci.db.dbmodel.Film;
+import borcha.com.glumci.db.dbmodel.Glumac;
+
 /**
  * Created by borcha on 02.06.17..
  */
 
-class MySqlZanr extends MyDbHelp {
+public class MySqlFilm extends MyDbHelp {
 
     private Context cont;
-    private Zanr zanr;
+    private Film film;
     private int id=0;
 
 
@@ -27,7 +29,7 @@ class MySqlZanr extends MyDbHelp {
      * @param _cont
 
      */
-    public MySqlZanr(Context _cont){
+    public MySqlFilm(Context _cont){
         super(_cont);
         this.cont=_cont;
 
@@ -36,12 +38,12 @@ class MySqlZanr extends MyDbHelp {
     /**
      * Konstruktor sa Id-om je ukoliko saljemo u cilju update ili brisanja podatka.
      * @param _cont
-     * @param _zanr
+     * @param _Film
      */
-    public MySqlZanr(Context _cont, Zanr _zanr) {
+    public MySqlFilm(Context _cont, Film _Film) {
         super(_cont);
         this.cont = _cont;
-        this.zanr=_zanr;
+        this.film=_Film;
 
     }
 
@@ -51,12 +53,12 @@ class MySqlZanr extends MyDbHelp {
     /**
      * Update jela
      */
-    public void prepraviKategoriju() {
+    public void prepraviFilm() {
 
        int rez= 0;
 
         try {
-            rez = getDaoZanr().update(this.zanr);
+            rez = getDaoFilm().update(film);
             //PrepraviKategoriju.OnPrepraviKategoriju(rez);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,10 +72,10 @@ class MySqlZanr extends MyDbHelp {
     /**
      * Brisanje jela
      */
-    public void obrisiKategoriju()  {
+    public void obrisiFilm()  {
         int rez= 0;
             try{
-                rez=getDaoZanr().delete(this.zanr);
+                rez=getDaoFilm().delete(this.film);
                 //ObrisiKategoriju.OnObrisiKategoriju(rez);
 
 
@@ -84,17 +86,17 @@ class MySqlZanr extends MyDbHelp {
     }
 
     /**
-     * Unos novog zanra
-     * @param _zanr
+     * Unos novog Filma
+     * @param _Film
      */
-    public void snimiNovuKategoriju(Zanr _zanr) {
+    public void snimiNoviFilm(Film _Film) {
 
-        if(!_zanr.equals(null)) {
+        if(!_Film.equals(null)) {
             //TODO. Uraditi Sql upit za delete
             int rez = 0;
             try {
-                rez = getDaoZanr().create(_zanr);
-                //SnimiNovuKategoriju.OnSnimiNovuKategoriju(rez);
+                rez = getDaoFilm().create(_Film);
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -105,10 +107,10 @@ class MySqlZanr extends MyDbHelp {
 
 
     //Vraca listu svih objekata Jelo
-    public List<Zanr> getSveKategorije() {
-        List<Zanr> lista=new ArrayList<>();
+    public List<Film> getSviFilmovi() {
+        List<Film> lista=new ArrayList<>();
         try {
-            lista=getDaoZanr().queryForAll();
+            lista=getDaoFilm().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -116,27 +118,16 @@ class MySqlZanr extends MyDbHelp {
     }
 
     //Trazi vrednost jela po ID zapisu
-    public Zanr getZanrPoId(int _id) {
-        Zanr Zanr=null;
+    public Film getFilmPoId(int _id) {
+        Film Film=null;
         try {
-            Zanr= getDaoZanr().queryForId(_id);
+            Film= getDaoFilm().queryForId(_id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Zanr;
+        return Film;
     }
 
-    /**
-     *  Vraca listu jela po kategoriji
-     */
-
-    public List<Glumac> getJelaPoKategoriji(Zanr _Zanr) throws SQLException {
-
-        QueryBuilder upit=getDaoGlumac().queryBuilder().join(getDaoGlumac().queryBuilder());
-        Where<Glumac,Integer> where=upit.where().idEq(_Zanr);
-
-        return where.query();
-    }
 
 
 
@@ -148,19 +139,19 @@ class MySqlZanr extends MyDbHelp {
         this.id = id;
     }
 
-    public Zanr getZanr() {
-        return zanr;
+    public Film getFilm() {
+        return this.film;
     }
 
-    public void setZanr(Zanr Zanr) {
-        this.zanr = Zanr;
+    public void setFilm(Film Film) {
+        this.film = Film;
     }
 
 
-    public int getBrojZanr(){
+    public int getBrojFilm(){
         int br=0;
         try {
-            br=getDaoZanr().queryForAll().size();
+            br=getDaoFilm().queryForAll().size();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -168,19 +159,6 @@ class MySqlZanr extends MyDbHelp {
         return br;
     }
 
-
-    //***********************Intefejs -> dogadjaji **************************************
-    public interface IPrepraviKategoriju{
-        public void OnPrepraviKategoriju(int uspesno);
-    }
-
-    public interface IObrisiKategoriju{
-        void OnObrisiKategoriju(int uspesno);
-    }
-
-    public interface ISnimiNovuKategoriju{
-        void OnSnimiNovuKategoriju(int uspesno);
-    }
 
 
 

@@ -1,5 +1,6 @@
 package borcha.com.glumci.db;
-
+import borcha.com.glumci.db.dbmodel.Film;
+import borcha.com.glumci.db.dbmodel.Glumac;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -8,11 +9,9 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-
 import java.sql.SQLException;
 
-import borcha.com.glumci.db.dbmodel.Glumac;
-import borcha.com.glumci.db.dbmodel.Zanr;
+
 
 /**
  * Created by borcha on 02.06.17..
@@ -24,7 +23,7 @@ public class MyDbHelp extends OrmLiteSqliteOpenHelper {
     private static final int DB_VER=1;
 
     private Dao<Glumac, Integer> daoGlumac=null;
-    private Dao<Zanr, Integer> daoZanr = null;
+    private Dao<Film, Integer> daoFilm = null;
 
     public MyDbHelp(Context context) {
            super(context, DBNAME, null,DB_VER);
@@ -38,7 +37,7 @@ public class MyDbHelp extends OrmLiteSqliteOpenHelper {
         Log.i(MyDbHelp.class.getName(), "onCreate");
         try {
             TableUtils.createTable(conn, Glumac.class);
-            TableUtils.createTable(conn, Zanr.class);
+            TableUtils.createTable(conn, Film.class);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -53,7 +52,7 @@ public class MyDbHelp extends OrmLiteSqliteOpenHelper {
         Log.i(MyDbHelp.class.getName(), "onUpdate");
         try {
             TableUtils.dropTable(conn,Glumac.class,true);
-            TableUtils.dropTable(conn,Zanr.class,true);
+            TableUtils.dropTable(conn,Film.class,true);
 
             onCreate(database,conn);
 
@@ -74,19 +73,20 @@ public class MyDbHelp extends OrmLiteSqliteOpenHelper {
     }
 
 
-    public Dao<Zanr,Integer> getDaoZanr() throws SQLException {
 
-        if(daoZanr==null){
-            daoZanr=getDao(Zanr.class);
+    public Dao<Film,Integer> getDaoFilm() throws SQLException {
+
+        if(daoFilm==null){
+            daoFilm=getDaoFilm();
         }
 
-        return daoZanr;
+        return daoFilm;
     }
 
     @Override
     public void close() {
         Log.i("baza","Zatvorena");
-        daoZanr=null;
+        daoFilm=null;
         daoGlumac=null;
 
         super.close();
