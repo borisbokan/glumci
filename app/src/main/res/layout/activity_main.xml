@@ -22,4 +22,21 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <ListView
+            android:id="@+id/lvGlumci"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+        </ListView>
+        
+        
+    </LinearLayout>
+    
+    
 </android.support.v4.widget.DrawerLayout>
