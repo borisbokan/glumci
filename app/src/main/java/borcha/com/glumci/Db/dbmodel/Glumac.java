@@ -3,7 +3,9 @@ package borcha.com.glumci.Db.dbmodel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import com.j256.ormlite.*;
 
+import static android.R.attr.data;
 
 
 /**
@@ -11,6 +13,12 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class Glumac {
+
+    private static final String dTABLE_GLUMAC="tGlumci",
+
+
+
+
 
     private int id;
     private String ime;
