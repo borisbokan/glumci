@@ -1,5 +1,6 @@
 package borcha.com.glumci.Aktivnosti;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.ForeignCollectionField;
+
+import java.util.Date;
+
 import borcha.com.glumci.R;
+import borcha.com.glumci.db.MySqLGlumci.MySqlGlumac;
+import borcha.com.glumci.db.dbmodel.Film;
+import borcha.com.glumci.db.dbmodel.Glumac;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,12 +34,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        inicirajPocetneVrednosti();
+
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent inNoviGlumac=new Intent(getBaseContext(),UnosIspravkaFilma.class);
+                inNoviGlumac.putExtra("operacija",UnosIspravkaFilma.TIPOPERACIJE_NOVO);
+                startActivity(inNoviGlumac);
+
             }
         });
 
@@ -42,6 +57,31 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    //Napraviti bazu i pocetne vrednosti
+    private void inicirajPocetneVrednosti() {
+
+        Glumac startGlumac=new Glumac();
+        startGlumac.setPrezime("Damon");
+        startGlumac.setIme("Matt");
+        startGlumac.setDatumRodjenja(new Date());
+        startGlumac.setBiografija("Metju Pejdž Dejmon (engl. Matthew Paige Damon) američki je glumac i scenarista, rođen 8. oktobra 1970. godine u Kembridžu (Masačusets).");
+
+       /* Film film1=new Film();
+        film1.setNaziv("Film 1");
+        film1.setZanr("Akcioni");//iz arrays
+
+        Film film2=new Film();
+        film1.setNaziv("Film 2");
+        film1.setZanr("Horor");//iz arrays
+
+        startGlumac.addFilm(film1);
+        startGlumac.addFilm(film2);*/
+
+        MySqlGlumac dbglumac=new MySqlGlumac(this);
+        dbglumac.setGlumac(startGlumac);
+
     }
 
     @Override

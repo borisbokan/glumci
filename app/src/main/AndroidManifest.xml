@@ -19,6 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Aktivnosti.UnosIspravkaFilma"
+            android:label="@string/unos_ispravka_glumca">
+
+
+        </activity>
+
     </application>
 
 </manifest>

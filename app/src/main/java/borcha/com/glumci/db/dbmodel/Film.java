@@ -1,5 +1,6 @@
 package borcha.com.glumci.db.dbmodel;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -12,6 +13,7 @@ public class Film {
     public static final String tFilm_id="id";
     public static final String tFilm_naziv="naziv";
     public static final String tFilm_zanr="zanr";
+    public static final String tFilm_glumac="glumac";
 
 
     @DatabaseField(columnName = tFilm_id,generatedId = true)
@@ -21,6 +23,7 @@ public class Film {
     @DatabaseField(columnName = tFilm_zanr)
     private String zanr;
 
+    @DatabaseField(columnName = tFilm_glumac,foreign = true,foreignAutoCreate = true,foreignAutoRefresh = true)
     private Glumac glumac;
 
 

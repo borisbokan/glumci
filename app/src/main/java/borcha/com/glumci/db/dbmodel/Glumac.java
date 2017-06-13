@@ -43,8 +43,7 @@ public class Glumac {
 
     public Glumac() { }
 
-    public Glumac(int _id, String _ime, String _prezime, Date _datumRodjenja, float _rejting) {
-        this.id = _id;
+    public Glumac( String _ime, String _prezime, Date _datumRodjenja, float _rejting) {
         this.ime = _ime;
         this.prezime = _prezime;
         this.datumRodjenja = _datumRodjenja;
@@ -101,6 +100,10 @@ public class Glumac {
 
     public void setRejting(float rejting) {
         this.rejting = rejting;
+    }
+
+    public void addFilm(Film _film){
+        this.filmovi.add(_film);
     }
 
     public ForeignCollection<Film> getFilmovi() {
