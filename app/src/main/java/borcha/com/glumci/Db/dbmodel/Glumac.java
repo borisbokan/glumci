@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+
+
 /**
  * Created by borcha on 20.05.17..
  */
@@ -19,7 +21,7 @@ public class Glumac {
     private float rejting;
     private String slika;
 
-    //private ArrayList<Film> filmovi;
+
 
     public Glumac() { }
 
